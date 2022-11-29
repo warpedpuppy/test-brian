@@ -44,7 +44,7 @@ describe('<Event /> component', () => {
       test("renders the 'see details' button when collapsed", () => {
         const detailsButton = EventWrapper.find("button.details-button");
     //find the button if the details are collapsed
-        expect(detailsButton).toHaveLength(1);
+        expect(detailsButton).toEqual(1);
         expect(detailsButton.text()).toBe("see details");
     //button text should be "see details"  
     });
