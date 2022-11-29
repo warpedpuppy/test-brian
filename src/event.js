@@ -13,7 +13,8 @@ class Event extends Component {
   render() {
     const { event } = this.props;
     const { collapsed } = this.state;
-    return <div>
+    return (
+    <div>
       <h1 class="summary">
         {event.summary}
       </h1>
@@ -45,7 +46,8 @@ class Event extends Component {
           {collapsed ? "show" : "hide"} 
             See Details
       </button>
-    </div>;
+    </div>
+    );  
   }
 }
 export default Event;
