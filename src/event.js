@@ -27,7 +27,7 @@ class Event extends Component {
       </p>{
         !collapsed &&(
           <>
-          <h2 className="about"> About Event:</h2>
+          <h2 className="about">About Event:</h2>
           <a className="link" href={event.htmlLink}>
             Click Here to See Additional Details!
             </a>
