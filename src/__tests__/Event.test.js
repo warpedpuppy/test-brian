@@ -35,16 +35,19 @@ describe('<Event /> component', () => {
       });
       test("renders the location/address details in a paragraph", () => {
         const eventLocation = EventWrapper.find("p.event-address");
-    
+    //event location should be the event-address from mock data in details
         expect(eventLocation).toHaveLength(1);
+        //event location should exist
         expect(eventLocation.text()).toBe(`@${event.summary} | ${event.location}`);
+        //event location text should be type literal combination of summary & location
       });
       test("renders the 'see details' button when collapsed", () => {
         const detailsButton = EventWrapper.find("button.details-button");
-    
+    //find the button if the details are collapsed
         expect(detailsButton).toHaveLength(1);
         expect(detailsButton.text()).toBe("see details");
-      });
+    //button text should be "see details"  
+    });
       test("renders collapsed by default", () => {
         expect(EventWrapper.state("collapsed")).toBe(true);
       });
