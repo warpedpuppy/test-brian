@@ -7,6 +7,7 @@ import { mockData } from '../mock-data';
 describe('<Event /> component', () => {
     let EventWrapper;
     const event = mockData[0];
+    //mock data starts at position zero
     beforeAll(() => {
     EventWrapper = shallow(<Event event={event} />);
     });    
@@ -16,16 +17,13 @@ describe('<Event /> component', () => {
         expect(EventWrapper).toBeDefined();
     });
 
-    test('<Ensure Div is rendered /> component', () => {
-        expect(EventWrapper.find('.event')).toHaveLength(1);
-    })
-
-    test('<Event Title is rendered /> component', ()=> {
-        expect(EventWrapper.find('.summary')).toBe(1);
-    })
-
+      
     test('renders the summary as a header /> component', () =>{
-        expect(EventWrapper.find('.summary')).toBe(h1.summary);
+        const summary = EventWrapper.find("h1.summary");
+        expect(summary).toHaveLength(1);
+        //checks to make sure the summary is not an empty field
+        expect(summary.text()).toBe(event.summary);
+        //checks to make sure the displayed summary text is the same as the mock data text
     })
 
 
