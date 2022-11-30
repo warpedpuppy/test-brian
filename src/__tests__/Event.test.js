@@ -44,8 +44,7 @@ describe('<Event /> component', () => {
       test("renders the 'see details' button when collapsed", () => {
         const detailsButton = EventWrapper.find("button.details-button");
     //find the button if the details are collapsed
-        expect(detailsButton).toEqual(1);
-        expect(detailsButton.text()).toBe("see details");
+        expect(detailsButton.text()).toBe("show");
     //button text should be "see details"  
     });
       test("renders collapsed by default", () => {
@@ -54,7 +53,7 @@ describe('<Event /> component', () => {
       test("change to expanded if collapsed", () => {
         const detailsButton = EventWrapper.find("button.details-button");
     
-        expect(detailsButton.text()).toBe("see details");
+        expect(detailsButton.text()).toBe("show");
         expect(EventWrapper.find("h2.about")).toHaveLength(0);
         expect(EventWrapper.find("a.link")).toHaveLength(0);
         expect(EventWrapper.find("p.description")).toHaveLength(0);
@@ -78,7 +77,6 @@ describe('<Event /> component', () => {
         expect(link.prop("href")).toBe(event.htmlLink);
         expect(description).toHaveLength(1);
         expect(description.text()).toBe(event.description);
-    
         detailsButton.simulate("click");
         expect(EventWrapper.state("collapsed")).toBe(true);
       });
