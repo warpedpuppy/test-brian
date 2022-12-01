@@ -1,7 +1,6 @@
-
  import { mockData } from './mock-data';
 
-export const getEvents = async() => { 
+export const getEvents = async () => { 
     return mockData;
  };
 
