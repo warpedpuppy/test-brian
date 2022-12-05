@@ -86,10 +86,11 @@ module.exports.getCalendarEvents = (event) => {
   const access_token = decodeURIComponent(
     `${event.pathParameters.access_token}`
   );
-
+console.log("access token", access_token)
   oAuth2Client.setCredentials({ access_token });
-
+console.log("successful credential")
   return new Promise((resolve, reject) => {
+    console.log("trying to call calendar events.list")
     calendar.events.list(
       {
         calendarId: calendar_id,
@@ -108,6 +109,7 @@ module.exports.getCalendarEvents = (event) => {
     );
   })
     .then((results) => {
+      console.log("results", results)
       return {
         statusCode: 200,
         headers: {
