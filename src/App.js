@@ -12,13 +12,17 @@ class App extends Component {
     locations:[]
   }
 
-  updateEvents = (location) => {
+  updateEvents = (location, eventCount) => {
+    eventCount = eventCount || 32;
+    location = location || "all";
+    //two parameters state that the displayed number of events is either the event count chosen by the user, or 32 as a base value
     getEvents().then((events) => {
       const locationEvents = (location === 'all') ?
         events :
         events.filter((event) => event.location === location);
       this.setState({
-        events: locationEvents
+        events: locationEvents.slice(0, eventCount)
+      //the slice begins at 0, the first entry, and runs to 1 less than eventCount
       });
     });
   }
@@ -27,9 +31,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
-        <NumberOfEvents />
-        <EventList events={this.state.events} />
+        <CitySearch 
+        locations={this.state.locations} 
+        updateEvents={this.updateEvents} />
+        <NumberOfEvents
+        updateEvents={this.updateEvents} />
+        <EventList 
+        events={this.state.events} />
       </div>
     );
   }

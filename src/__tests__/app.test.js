@@ -54,6 +54,7 @@ describe('<App /> integration',() =>{
     const selectedIndex = Math.floor(Math.random() * (suggestions.length));
     const selectedCity = suggestions[selectedIndex];
     await CitySearchWrapper.instance().handleItemClicked(selectedCity);
+    //this is you clicking on the selected city in the dropdown menu
     const allEvents = await getEvents();
     const eventsToShow = allEvents.filter(event => event.location === selectedCity);
     expect(AppWrapper.state('events')).toEqual(eventsToShow);
@@ -68,6 +69,23 @@ describe('<App /> integration',() =>{
     expect(AppWrapper.state('events')).toEqual(allEvents);
     AppWrapper.unmount();
   });
+
+  test('Does the amount of events displayed match the change when the number of events value changes', async()=>{
+    const AppWrapper = mount(<App />);
+    const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
+    const inputField = NumberOfEventsWrapper.find('input.number');
+    const eventObject={target: {value: 20}};
+    inputField.simulate('change', eventObject);
+    await getEvents();
+    expect(AppWrapper.state('eventCount')).toBe(20);
+    expect(NumberOfEventsWrapper.state('eventCount')).toBe(20);
+    AppWrapper.unmount();
+  });
+
+    //make number of inputs field have the value randomEventQuantity
+    //check to make sure that AppWrapper.state('events').length = randomEventQuantity
+    //Generate a random number based on lenghth of events, simulate a change in number of events component. Like line 69, ensure the Appwrapper.state of events matches the number of events tested in generation. Suggestions.allEvents
+  })
 
 });
 });
