@@ -82,9 +82,7 @@ describe('<App /> integration',() =>{
     AppWrapper.unmount();
   });
 
-    //make number of inputs field have the value randomEventQuantity
-    //check to make sure that AppWrapper.state('events').length = randomEventQuantity
-    //Generate a random number based on lenghth of events, simulate a change in number of events component. Like line 69, ensure the Appwrapper.state of events matches the number of events tested in generation. Suggestions.allEvents
+
   })
 
 });
