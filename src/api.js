@@ -46,7 +46,7 @@ const checkToken = async (accessToken) => {
     if (token) {
       removeQuery();
       try { 
-        const url = 'https://7zumlswfif.execute-api.us-east-1.amazonaws.com/dev/api/get-events' + '/' + token;
+        const url = `https://7zumlswfif.execute-api.us-east-1.amazonaws.com/dev/api/get-events/${token}`;
         const result = await axios.get(url);
         if (result.data) {
           var locations = extractLocations(result.data.events);

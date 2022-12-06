@@ -78,11 +78,13 @@ module.exports.getAuthURL = async () => {
 };
 
 module.exports.getCalendarEvents = (event) => {
+  console.log("getCalendarEvents hit", client_id, client_secret)
   const oAuth2Client = new google.auth.OAuth2(
     client_id,
     client_secret,
     redirect_uris[0]
   );
+  console.log("OAuth2 client", oAuth2Client);
   const access_token = decodeURIComponent(
     `${event.pathParameters.access_token}`
   );
