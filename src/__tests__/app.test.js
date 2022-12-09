@@ -65,6 +65,7 @@ describe('<App /> integration',() =>{
     const AppWrapper = mount(<App />);
     const suggestionItems = AppWrapper.find(CitySearch).find('.suggestions li');
     await suggestionItems.at(suggestionItems.length - 1).simulate('click');
+    console.log(suggestionItems)
     const allEvents = await getEvents();
     expect(AppWrapper.state('events')).toEqual(allEvents);
     AppWrapper.unmount();
@@ -73,9 +74,10 @@ describe('<App /> integration',() =>{
   test('Does the amount of events displayed match the change when the number of events value changes', async()=>{
     const AppWrapper = mount(<App />);
     const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
-    const inputField = NumberOfEventsWrapper.find('input.number');
+    const inputField = NumberOfEventsWrapper.find("input.num");
     const eventObject={target: {value: 20}};
     inputField.simulate('change', eventObject);
+    console.log(eventObject)
     await getEvents();
     expect(AppWrapper.state('eventCount')).toBe(20);
     expect(NumberOfEventsWrapper.state('eventCount')).toBe(20);

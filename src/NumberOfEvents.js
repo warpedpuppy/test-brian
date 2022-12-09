@@ -13,7 +13,7 @@ class NumberOfEvents extends Component {
     const { num } = this.state;
 
     return (
-      <div className="numberOfEvents">
+      <div className="NumberOfEvents">
         <h5>
         Number of Events
         </h5>
@@ -24,7 +24,8 @@ class NumberOfEvents extends Component {
           onChange={(event) => {
             this.changeNum(event.target.value);
           }}
-        ></input>
+        >
+        </input>
       </div>
     );
   }
