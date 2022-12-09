@@ -61,30 +61,24 @@ describe('<App /> integration',() =>{
     AppWrapper.unmount();
   });
 
-  test('get list of all events when user selects "See all cities"', async () => {
-    const AppWrapper = mount(<App />);
-    const suggestionItems = AppWrapper.find(CitySearch).find('.suggestions li');
-    await suggestionItems.at(suggestionItems.length - 1).simulate('click');
-    console.log(suggestionItems)
-    const allEvents = await getEvents();
-    expect(AppWrapper.state('events')).toEqual(allEvents);
-    AppWrapper.unmount();
-  });
-
-  test('Does the amount of events displayed match the change when the number of events value changes', async()=>{
+  test('The number of events rendered matching the input number', () => {
     const AppWrapper = mount(<App />);
     const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
-    const inputField = NumberOfEventsWrapper.find("input.num");
-    const eventObject={target: {value: 20}};
-    inputField.simulate('change', eventObject);
-    console.log(eventObject)
-    await getEvents();
-    expect(AppWrapper.state('eventCount')).toBe(20);
-    expect(NumberOfEventsWrapper.state('eventCount')).toBe(20);
+    const inputNumber = { target: {num : 1}};
+    NumberOfEventsWrapper.instance().changeNum(inputNumber);
+    getEvents();
+    expect(AppWrapper.state('events')).toHaveLength(1);
     AppWrapper.unmount();
   });
 
-
-  })
-
+test('The content of the event rendered matching the content of the mock API', () => {
+    const AppWrapper = mount(<App />);
+    const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
+    const inputNumber = { target: {num : 2}};
+    NumberOfEventsWrapper.instance().changeNum(inputNumber);
+    getEvents();
+    expect(AppWrapper.state('events')).toEqual([mockData]);
+    AppWrapper.unmount();
+    });
+  });
 });

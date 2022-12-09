@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import "./NumberOfEvents.css"
+import "./styles/NumberOfEvents.css"
 
 class NumberOfEvents extends Component {
   state = { num: 32 };
 
   changeNum(value) {
     this.setState({ num: value });
-    this.props.updateNumberOfEvents(undefined, value)
+    this.props.updateEvents(value)
   }
 
   render() {
