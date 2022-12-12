@@ -61,24 +61,21 @@ describe('<App /> integration',() =>{
     AppWrapper.unmount();
   });
 
-  test('The number of events rendered matching the input number', () => {
+  test('The number of events rendered matching the input number', async () => {
     const AppWrapper = mount(<App />);
-    const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
-    const inputNumber = { target: {num : 1}};
-    NumberOfEventsWrapper.instance().changeNum(inputNumber);
-    getEvents();
-    expect(AppWrapper.state('events')).toHaveLength(1);
+    const suggestionItems = AppWrapper.find(CitySearch).find('.suggestions', 'li');
+    await suggestionItems.at(suggestionItems.length - 1).simulate('click');
+    const allEvents = await getEvents();
+    expect(AppWrapper.state('events')).toEqual(allEvents);
     AppWrapper.unmount();
   });
 
-test('The content of the event rendered matching the content of the mock API', () => {
+test('The content of the event rendered matching the content of the mock API', async () => {
     const AppWrapper = mount(<App />);
     const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
-    const inputNumber = { target: {num : 2}};
-    NumberOfEventsWrapper.instance().changeNum(inputNumber);
-    getEvents();
-    expect(AppWrapper.state('events')).toEqual([mockData]);
-    AppWrapper.unmount();
+    NumberOfEventsWrapper.find('input', 'num').simulate('change', {target: {value:20}})
+    await getEvents();
+    expect(NumberOfEventsWrapper.state('num')).toBe(20);
     });
   });
 });
