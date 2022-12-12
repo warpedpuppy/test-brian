@@ -74,6 +74,7 @@ test('The content of the event rendered matching the content of the mock API', a
     const AppWrapper = mount(<App />);
     const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
     NumberOfEventsWrapper.find('input', 'num').simulate('change', {target: {value:20}})
+    console.log(NumberOfEventsWrapper.find('input'))
     await getEvents();
     expect(NumberOfEventsWrapper.state('num')).toBe(20);
     });
