@@ -30,7 +30,7 @@ defineFeature(feature, test => {
         });
             
         when('the user clicks the button to see more details', async () => {
-            await AppWrapper.find(".event", " .details-button").at(0).simulate('click');
+            await AppWrapper.find("event", " .details-button").at(0).simulate('click');
         });
     
         then('the event is expanded to show the details', async () => {
@@ -43,11 +43,11 @@ defineFeature(feature, test => {
         let AppWrapper;
         given('the user is viewing an expanded event', () => {
             AppWrapper = mount(<App />);
-            AppWrapper.find(".event .details-button").at(0).simulate('click');
+            AppWrapper.find("event", " .details-button").at(0).simulate('click');
         });
     
         when('the user clicks the close details button', () => {
-            AppWrapper.find(".event", ".details-button").at(0).simulate('click');
+            AppWrapper.find(".event", " .details-button").at(0).simulate('click');
         });
     
         then('the event collapses back to it\'s initial state', () => {
