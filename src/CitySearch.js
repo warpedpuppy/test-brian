@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { InfoAlert } from './Alert';
+import './styles/CitySearch.css';
+
 
 class CitySearch extends Component {
   state = {
@@ -13,7 +16,21 @@ class CitySearch extends Component {
     this.setState({
       query: value,
       suggestions,
+      showSuggestions:false,
+      infoText:''
     });
+    if (suggestions.length === 0) {
+      this.setState({
+        query: value,
+        infoText: 'We can not find the city you are looking for. Please try another city',
+      });
+    } else {
+      return this.setState({
+        query: value,
+        suggestions,
+        infoText:''
+      });
+    }
   };
   handleItemClicked = (suggestion) => {
     this.setState({
@@ -26,6 +43,7 @@ class CitySearch extends Component {
   render() {
     return (
       <div className="CitySearch">
+        <InfoAlert className="alert" text={this.state.infoText} />
         <input
           type="text"
           className="city"
