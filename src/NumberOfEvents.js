@@ -13,7 +13,7 @@ class NumberOfEvents extends Component {
     this.setState({ num: value });
     this.props.updateEvents(value);
     if (value < 1 || value > 32) {
-      this.setState({ errorText: "Invalid value, please enter a valid number" });
+      this.setState({ errorText: "Invalid value, please enter a valid number" })
     } else this.setState({ errorText: "" });
   };
 
