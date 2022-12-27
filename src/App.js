@@ -1,65 +1,81 @@
-import React, { Component } from 'react';
-import './styles/App.css';
-import EventList from './EventList';
-import CitySearch from './CitySearch';
+import React, { Component } from "react";
+import "./styles/App.css";
+import EventList from "./EventList";
+import CitySearch from "./CitySearch";
 import NumberOfEvents from "./NumberOfEvents";
-import { getEvents, extractLocations } from './api';
-import './styles/nprogress.css';
+import "./styles/nprogress.css";
 import { InfoAlert } from "./Alert";
-
+import WelcomeScreen from "./styles/WelcomeScreen.css";
+import { getEvents, extractLocations, checkToken, getAccessToken } from "./api";
 
 class App extends Component {
   state = {
     events: [],
-    locations:[],
-    eventCount: 32
-  }
+    locations: [],
+    eventCount: 32,
+    showWelcomeScreen: undefined,
+  };
 
   updateEvents = (location, eventCount) => {
     eventCount = eventCount || 32;
-    console.log(eventCount)
+    console.log(eventCount);
     location = location || "all";
     //two parameters state that the displayed number of events is either the event count chosen by the user, or 32 as a base value
     getEvents().then((events) => {
-      const locationEvents = (location === 'all') ?
-        events :
-        events.filter((event) => event.location === location);
+      const locationEvents =
+        location === "all"
+          ? events
+          : events.filter((event) => event.location === location);
       this.setState({
-        events: locationEvents.slice(0, eventCount)
-      //the slice begins at 0, the first entry, and runs to 1 less than eventCount
+        events: locationEvents.slice(0, eventCount),
+        //the slice begins at 0, the first entry, and runs to 1 less than eventCount
       });
     });
-  }
-
+  };
 
   render() {
+    if (this.state.showWelcomeScreen === undefined)
+      return <div className="App" />;
     return (
       <div className="App">
-         {!navigator.onLine && (
+        {!navigator.onLine && (
           <InfoAlert
             className="alert-centered"
             text="App is currently offline. You are seeing your cached data."
-          />)}
-        <CitySearch 
-        locations={this.state.locations} 
-        updateEvents={this.updateEvents} />
-        <NumberOfEvents
-        updateEvents={this.updateEvents} />
-        <EventList 
-        events={this.state.events} />
+          />
+        )}
+        <CitySearch
+          locations={this.state.locations}
+          updateEvents={this.updateEvents}
+        />
+        <NumberOfEvents updateEvents={this.updateEvents} />
+        <EventList events={this.state.events} />
+        <WelcomeScreen
+          showWelcomeScreen={this.state.showWelcomeScreen}
+          getAccessToken={() => {
+            getAccessToken();
+          }}
+        />
       </div>
     );
   }
-  componentDidMount() {
+  async componentDidMount() {
     this.mounted = true;
-    getEvents().then((events) => {
-      if (this.mounted) {
-        this.setState({ events, locations: extractLocations(events) });
-      }
-    });
+    const accessToken = localStorage.getItem("access_token");
+    const isTokenValid = (await checkToken(accessToken)).error ? false : true;
+    const searchParams = new URLSearchParams(window.location.search);
+    const code = searchParams.get("code");
+    this.setState({ showWelcomeScreen: !(code || isTokenValid) });
+    if ((code || isTokenValid) && this.mounted) {
+      getEvents().then((events) => {
+        if (this.mounted) {
+          this.setState({ events, locations: extractLocations(events) });
+        }
+      });
+    }
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.mounted = false;
   }
 }
