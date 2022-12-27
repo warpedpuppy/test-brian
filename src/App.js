@@ -5,6 +5,8 @@ import CitySearch from './CitySearch';
 import NumberOfEvents from "./NumberOfEvents";
 import { getEvents, extractLocations } from './api';
 import './styles/nprogress.css';
+import { InfoAlert } from "./Alert";
+
 
 class App extends Component {
   state = {
@@ -33,6 +35,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+         {!navigator.onLine && (
+          <InfoAlert
+            className="alert-centered"
+            text="App is currently offline. You are seeing your cached data."
+          />)}
         <CitySearch 
         locations={this.state.locations} 
         updateEvents={this.updateEvents} />
