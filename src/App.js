@@ -15,6 +15,7 @@ class App extends Component {
 
   updateEvents = (location, eventCount) => {
     eventCount = eventCount || 32;
+    console.log(eventCount)
     location = location || "all";
     //two parameters state that the displayed number of events is either the event count chosen by the user, or 32 as a base value
     getEvents().then((events) => {
