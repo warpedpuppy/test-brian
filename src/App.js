@@ -18,9 +18,7 @@ class App extends Component {
 
   updateEvents = (location, eventCount) => {
     eventCount = eventCount || 32;
-    console.log(eventCount);
     location = location || "all";
-    //two parameters state that the displayed number of events is either the event count chosen by the user, or 32 as a base value
     getEvents().then((events) => {
       const locationEvents =
         location === "all"
@@ -29,7 +27,6 @@ class App extends Component {
       this.setState({
         showWelcomeScreen: undefined,
         events: locationEvents.slice(0, eventCount),
-        //the slice begins at 0, the first entry, and runs to 1 less than eventCount
       });
     });
   };
