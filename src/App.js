@@ -5,7 +5,7 @@ import CitySearch from "./CitySearch";
 import NumberOfEvents from "./NumberOfEvents";
 import "./styles/nprogress.css";
 import { InfoAlert } from "./Alert";
-import WelcomeScreen from './WelcomeScreen';
+import WelcomeScreen from "./WelcomeScreen";
 import { getEvents, extractLocations, checkToken, getAccessToken } from "./api";
 
 class App extends Component {
@@ -34,7 +34,6 @@ class App extends Component {
     });
   };
 
-
   async componentDidMount() {
     this.mounted = true;
     const accessToken = localStorage.getItem("access_token");
@@ -54,7 +53,6 @@ class App extends Component {
   componentWillUnmount() {
     this.mounted = false;
   }
-
 
   render() {
     if (this.state.showWelcomeScreen === undefined)
