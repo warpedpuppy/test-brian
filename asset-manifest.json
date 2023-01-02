@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/test-brian/static/css/main.e6c13ad2.css",
+    "main.js": "/test-brian/static/js/main.2bca8877.js",
+    "service-worker.js": "/test-brian/service-worker.js",
+    "index.html": "/test-brian/index.html",
+    "main.e6c13ad2.css.map": "/test-brian/static/css/main.e6c13ad2.css.map",
+    "main.2bca8877.js.map": "/test-brian/static/js/main.2bca8877.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.2bca8877.js"
+  ]
+}
